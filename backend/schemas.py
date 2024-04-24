@@ -1,9 +1,11 @@
 from uuid import UUID
+import uuid
 
-from pydantic import BaseModel
+from pydantic import field_validator
+from sqlmodel import SQLModel, Field
 
 
-class BaseMovie(BaseModel):
+class BaseMovie(SQLModel):
     name: str
     year: int
 
@@ -13,14 +15,20 @@ class CreateMovieRequest(BaseMovie):
 class UpdateMovieRequest(BaseMovie):
     pass
 
-class Movie(BaseMovie):
-    movie_id: UUID
+class Movie(BaseMovie, table=True):
+    movie_id: str | None = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True)
 
-class CreateMovieResponse(BaseModel):
+    @field_validator("movie_id", mode="before", check_fields=False)
+    def convert_uuid_to_str(cls, v: uuid) -> str:
+        if isinstance(v, UUID):
+            return str(v)
+        raise ValueError 
+        
+class CreateMovieResponse(SQLModel):
     id: UUID
 
-class UpdateMovieResponse(BaseModel):
+class UpdateMovieResponse(SQLModel):
     success: bool
 
-class DeleteMovieResponse(BaseModel):
+class DeleteMovieResponse(SQLModel):
     success: bool
