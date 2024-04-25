@@ -10,6 +10,10 @@ I was successfully able to connect a FastAPI with a database and a React fronten
 
 Clone the repository and run `pip install -r requirements.txt` in the backend folder.
 
+### Docker Postgres Database Create
+
+Within the backend folder, run `docker-compose up -d`.
+
 ### Backend Start
 
 You can access the FastAPI Docs at <http://localhost:8000/docs>.

@@ -35,13 +35,7 @@ function App() {
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-semibold text-center">Movie Catalog</h1>
       <AddMovieForm onMovieAdded={fetchMovies} />
-      <Movies
-        movies={movies}
-        deleteMovie={deleteMovie}
-        fetchMovies={function (): void {
-          throw new Error("Function not implemented.");
-        }}
-      />
+      <Movies movies={movies} deleteMovie={deleteMovie} />
     </div>
   );
 }

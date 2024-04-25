@@ -9,7 +9,6 @@ interface Movie {
 
 interface MoviesProps {
   movies: Movie[];
-  fetchMovies: () => void;
   deleteMovie: (movieId: string) => void;
 }
 
